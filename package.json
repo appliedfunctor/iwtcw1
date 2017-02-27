@@ -1,0 +1,14 @@
+{
+  "name": "iwtcw1",
+  "version": "1.0.0",
+  "description": "Coursework 1 for Internet and Web Technologies 2017",
+  "main": "index.htm",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Alexander Worton",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^2.5.3"
+  }
+}
