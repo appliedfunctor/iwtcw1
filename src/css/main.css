@@ -28,6 +28,7 @@ label{
     display: inline-block;
     min-width: 5em;
     text-align: right;
+    margin-right: 2em;
 }
 
 table{
@@ -68,7 +69,8 @@ th{
     margin-left: auto;
     margin-right: auto;
     padding: 1.1em;
-    min-width: 20em;
+    font-weight: bold;
+    box-shadow: 0 0.1em 0.1em #1E1E1E;
 }
 
 .block{
@@ -84,11 +86,10 @@ th{
     color: #B5CAD0;
     overflow: hidden;
     font-size: 2vw;
-    width: 1.5em;
-}
-
-.dropdown select:focus {
-    outline: none;
+    width: 8em;
+    text-align: center;
+    margin: 0;
+    padding: 0.5em;
 }
 
 #content{
@@ -98,6 +99,6 @@ th{
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
-    text-indent: 1px;
+    text-indent: 0;
     text-overflow: '';
 }
