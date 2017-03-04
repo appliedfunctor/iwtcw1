@@ -8,17 +8,41 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-    <div>
-    <span id="search">
-        <form>
-            <span class="block"><label>Title: </label><input type="text" name="title" /></span>
-            <span class="block"><label>Year: </label><input type="text" name="year" /></span>
-            <span class="block"><label>Fraction: </label><input type="text" name="fraction" /></span>
-        </form>
-    </span>
-    </div>
-    <br>
-    <div id="content">
+    <div id="page">
+        <span id="search">
+            <form>
+                <span class="block">
+                    <label>Title: </label>
+                    <select class="dropdown">
+                        <Option value=">">&gt;</Option>
+                        <Option value="=">=</Option>
+                        <Option value="<">&lt;</Option>
+                    </select>
+                    <input type="text" name="title" />
+                </span>
+                <span class="block">
+                    <label>Year: </label>
+                    <select class="dropdown">
+                        <Option value=">">&gt;</Option>
+                        <Option value="=">=</Option>
+                        <Option value="<">&lt;</Option>
+                    </select>
+                    <input type="text" name="year" /></span>
+                <span class="block">
+                    <label>Fraction: </label>
+                    <select class="dropdown">
+                        <Option value=">">&gt;</Option>
+                        <Option value="=">=</Option>
+                        <Option value="<">&lt;</Option>
+                    </select>
+                    <input type="text" name="fraction" />
+                </span>
+            </form>
+            <br>
+            Enter search restrictions in the fields above such as Title = Babel Opera
+        </span>
+        <div id="content">
+        </div>
     </div>
 </body>
 </html>
