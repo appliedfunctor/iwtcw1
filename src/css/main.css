@@ -1,0 +1,56 @@
+body{
+    background: #455A64;
+    color: #B5CAD0;
+    text-align: center;
+}
+
+form input{
+    background: #2A373E;
+    color: #B5CAD0;
+    min-height: 2em;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+    border: 1px solid;
+}
+
+label{
+    display: inline-block;
+    min-width: 5em;
+    text-align: right;
+}
+
+table{
+    border: 1px solid;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+th{
+    border-radius: 1em;
+}
+
+td{
+    border: 1px solid;
+}
+
+th{
+    border: 1px solid;
+}
+
+#search{
+    border-radius: 1em;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid;
+    padding: 1.1em;
+    min-width: 2em;
+}
+
+.block{
+    display: inline-block;
+}

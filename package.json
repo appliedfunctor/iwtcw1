@@ -2,13 +2,17 @@
   "name": "iwtcw1",
   "version": "1.0.0",
   "description": "Coursework 1 for Internet and Web Technologies 2017",
+  "repository": "git@github.com:aworton/iwtcw1.git",
   "main": "index.htm",
   "scripts": {
-    "test": "test"
+    "test": "./node_modules/.bin/jasmine-node spec"
   },
   "author": "Alexander Worton",
   "license": "ISC",
   "devDependencies": {
     "jasmine": "^2.5.3"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1"
   }
 }
