@@ -5,11 +5,11 @@
   <table>
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Year</th>
-            <th>Original title</th>
-            <th>Original year</th>
-            <th>Fraction</th>
+            <th width="40%">Title</th>
+            <th width="10%">Year</th>
+            <th width="40%">Original title</th>
+            <th width="10%">Original year</th>
+            <th width="10%">Fraction</th>
         </tr>
     </thead>
     <tbody>

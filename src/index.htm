@@ -13,31 +13,29 @@
             <form>
                 <span class="block">
                     <label>Title</label>
-                    <select class="dropdown">
-                        <Option value=">">&gt;</Option>
+                    <select id="titleSelect" class="dropdown">
                         <Option value="=">=</Option>
-                        <Option value="<">&lt;</Option>
-                        <Option value="contains">contains</Option>
+                        <Option value="contains" selected="selected">contains</Option>
                         <Option value="unchanged">is unchanged</Option>
                     </select>
-                    <input type="text" name="title" />
+                    <input id="titleInput" type="text" name="title" placeholder="Press enter to set input" />
                 </span>
                 <span class="block">
                     <label>Year</label>
-                    <select class="dropdown">
+                    <select id="yearSelect" class="dropdown">
                         <Option value=">">&gt;</Option>
                         <Option value="=">=</Option>
                         <Option value="<">&lt;</Option>
                     </select>
-                    <input type="text" name="year" /></span>
+                    <input id="yearInput" type="text" name="year" placeholder="Press enter to set input" /></span>
                 <span class="block">
                     <label>Fraction</label>
-                    <select class="dropdown">
+                    <select id="fractionSelect" class="dropdown">
                         <Option value=">">&gt;</Option>
                         <Option value="=">=</Option>
                         <Option value="<">&lt;</Option>
                     </select>
-                    <input type="text" name="fraction" />
+                    <input id="fractionInput" type="text" name="fraction" placeholder="Press enter to set input" />
                 </span>
             </form>
             <br>
