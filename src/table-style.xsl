@@ -14,6 +14,7 @@
     </thead>
     <tbody>
         <xsl:for-each select="//remake">
+            <xsl:sort select="rtitle" />
             <tr>
                 <td><xsl:value-of select="rtitle" /></td>
                 <td><xsl:value-of select="ryear" /></td>

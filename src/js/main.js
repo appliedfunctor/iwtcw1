@@ -1,24 +1,24 @@
 
+/** Global vars */
 var xmlContent = null;
 var xslContent = null;
 
 
 /**
- * retriee XML content from a supplied url with a callback
- * @param {*} myUrl the url to request the xml data from
+ * retrieve XML content from a supplied url with a callback
+ * @param {*} resourceUrl the url to request the xml data from
  * @param {*} callback the function to execute on success
  */
-function getXML(myUrl, callback) {
+function getXML(resourceUrl, callback) {
   $.ajax({
-    url: myUrl,
+    url: resourceUrl,
     dataType: 'xml',
     success: function(data){
       callback(data);
     },
-    error: function(xhr, status, error){
-      console.log('ajax call failed');
-      console.log( "Error: " + error );
-      console.log( "Status: " + status );
+    error: function(){
+      var errorNotice = "<h2>Ajax call failed<br>Unable to load " + resourceUrl + "</h2>";
+      $("#content").prepend(errorNotice);
     }
   });
 }
@@ -33,15 +33,16 @@ $(document).ready(function() {
   retrieveXMLData();    
 });
 
+/**
+ * make XML calls to retrieve both the xml document and the stylesheet
+ */
 function retrieveXMLData(){
   getXML('remakes.xml', function(xml) {
     getXML('table-style.xsl', function(style){
       processXsl(style, xml)
       xslContent = style;
-      console.log("xsl file read")
     });
     xmlContent = xml;
-    console.log("xml file read")
   });
 }
 
@@ -56,6 +57,8 @@ function addEventHandlers(){
   $("#titleInput").on("change", filterRecords);
   $("#yearInput").on("change", filterRecords);
   $("#fractionInput").on("change", filterRecords);
+
+  $("#sortSelect").on("change", filterRecords);
 }
 
 /**
@@ -89,7 +92,12 @@ function filterRecords(){
   var yearFilter = filterByYear();
   var fractionFilter = filterByFraction();
   var restrict = buildRestriction(titleFilter, yearFilter, fractionFilter);
-  activateFilter(restrict);
+  var sort = getSort();
+  activateFilter(restrict, sort);
+}
+
+function getSort(){
+  return $("#sortSelect").val();
 }
 
 function buildRestriction(titleFilter, yearFilter, fractionFilter){
@@ -101,13 +109,16 @@ function buildRestriction(titleFilter, yearFilter, fractionFilter){
   return restrict;
 }
 
-function activateFilter(restrict){
+function activateFilter(restrict, sort){
   if(restrict != ""){
     restrict = "[" + restrict + "]";
   }  
   applyFilter(xslContent,restrict);
+  applySort(sort);
   processXsl(xslContent, xmlContent); 
 }
+
+
 
 /**
  * Apply filtering by title
@@ -172,11 +183,14 @@ function getRestriction(field, restrict, value){
 }
 
 function applyFilter(xslContent, restrict){
-  console.log("//remake" + restrict)  
-
   $(xslContent).find("xsl\\:for-each, for-each")
                .first()
                .attr("select","//remake" + restrict);
+}
 
+function applySort(sort){
+  $(xslContent).find("xsl\\:sort, sort")
+               .first()
+               .attr("select", sort);
 }
 

@@ -20,6 +20,7 @@
                     </select>
                     <input id="titleInput" type="text" name="title" placeholder="Press enter to set input" />
                 </span>
+                <br>
                 <span class="block">
                     <label>Year</label>
                     <select id="yearSelect" class="dropdown">
@@ -27,7 +28,9 @@
                         <Option value="=">=</Option>
                         <Option value="<">&lt;</Option>
                     </select>
-                    <input id="yearInput" type="text" name="year" placeholder="Press enter to set input" /></span>
+                    <input id="yearInput" type="text" name="year" placeholder="Press enter to set input" />
+                </span>
+                <br>
                 <span class="block">
                     <label>Fraction</label>
                     <select id="fractionSelect" class="dropdown">
@@ -36,6 +39,17 @@
                         <Option value="<">&lt;</Option>
                     </select>
                     <input id="fractionInput" type="text" name="fraction" placeholder="Press enter to set input" />
+                </span>
+                <br>
+                <span class="block">
+                    <label>Sort by</label>
+                    <select id="sortSelect" class="dropdown">
+                        <Option value="rtitle" selected="selected">Title</Option>
+                        <Option value="ryear">Year</Option>
+                        <Option value="stitle">Original Title</Option>
+                        <Option value="syear">Original Year</Option>
+                        <Option value="fraction">Fraction</Option>
+                    </select>
                 </span>
             </form>
             <br>
