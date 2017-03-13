@@ -1,15 +1,28 @@
-"use strict";
+'use strict'
 
 /**
- * Encapsulate the script inside an IIFE to hide the scope
- * of the contents and avoid polluting the global scope.
- * Pass in JQuery to avoid script collision.
+ * Encapsulate the script to hide the scope of the contents and
+ * avoid polluting the global scope. Pass in JQuery to avoid script
+ * collision for run.
  */
-(function main ($) {
+var main = function run ($) {
   var debug = true
 
   var xmlContent = null
   var xslContent = null
+
+  /**
+   * start up function after the dom has finished loading
+   * grabs the xml and style documents in turn and then passes
+   * them for processing
+   */
+  $(document).ready(function () {
+    if (debug) {
+      console.log('ready!')
+    }
+    addEventHandlers()
+    retrieveXMLData()
+  })
 
   /**
    * retrieve XML content from a supplied url with a callback
@@ -32,17 +45,6 @@
       }
     })
   }
-
-  /**
-   * start up function after the dom has finished loading
-   * grabs the xml and style documents in turn and then passes
-   * them for processing
-   */
-  $(document).ready(function () {
-    console.log('ready!')
-    addEventHandlers()
-    retrieveXMLData()
-  })
 
   /**
    * make XML calls to retrieve both the xml document and the stylesheet
@@ -95,6 +97,10 @@
     $('#content').html(processedXml)
   }
 
+
+  /**
+   * run task sequence to filter records.
+   */
   function filterRecords () {
     var titleFilter = filterByTitle()
     var yearFilter = filterByYear()
@@ -104,10 +110,20 @@
     activateFilter(restrict, sort)
   }
 
+  /**
+   * Get value of the sort selector
+   */
   function getSort () {
     return $('#sortSelect').val()
   }
 
+  /**
+   * build the restrict text.
+   * @param {any} titleFilter component of the restriction relating to the title
+   * @param {any} yearFilter component of the restriction relating to the year
+   * @param {any} fractionFilter component of the restriction relating to the fraction
+   * @returns the complete restriction string.
+   */
   function buildRestriction (titleFilter, yearFilter, fractionFilter) {
     var restrict = titleFilter
     if (restrict !== '' && yearFilter !== '') { restrict += ' and ' }
@@ -130,7 +146,6 @@
     applySort(xslContent, sort)
     populateXSL(xslContent, xmlContent)
   }
-
 
   /**
    * Apply filtering by title
@@ -223,11 +238,29 @@
    */
   function applySort (xslContent, sort) {
     if (debug) {
-      console.log('sort: //remake ' + sort)
+      console.log('sort: ' + sort)
     }
     $(xslContent).find('xsl\\:sort, sort')
                 .first()
                 .attr('select', sort)
   }
+}
 
-})(jQuery)
+/**
+ * handle jQuery not being loaded prior to script
+ */
+function handleNoJQuery () {
+  var content = document.getElementById('content')
+  content.innerHTML = 'jQuery not found. This library requires JQuery, ' +
+          'please install to continue and ensure it loads first.'
+}
+
+/**
+ * check if jQuery is loaded
+ */
+if (typeof jQuery !== 'undefined') {
+  main(jQuery)
+} else {
+  // inspired by http://stackoverflow.com/questions/24647839/referenceerror-document-is-not-defined-in-plain-javascript
+  window.addEventListener('load', handleNoJQuery, false)
+}
