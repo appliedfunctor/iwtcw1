@@ -16,7 +16,7 @@ var main = function run ($) {
    * grabs the xml and style documents in turn and then passes
    * them for processing
    */
-  $(document).ready(function () {
+  $(document).ready(function handleReady () {
     if (debug) {
       console.log('ready!')
     }
@@ -26,17 +26,17 @@ var main = function run ($) {
 
   /**
    * retrieve XML content from a supplied url with a callback
-   * @param {*} resourceUrl the url to request the xml data from
-   * @param {*} callback the function to execute on success
+   * @param {string} resourceUrl the url to request the xml data from
+   * @param {function} callback the function to execute on success
    */
   function getXML (resourceUrl, callback) {
     $.ajax({
       url: resourceUrl,
       dataType: 'xml',
-      success: function (data) {
+      success: function handleSuccess (data) {
         callback(data)
       },
-      error: function () {
+      error: function handleError () {
         var errorNotice = '<h2>Ajax call failed<br>Unable to load ' + resourceUrl + '</h2>'
         if (window.location.protocol === 'file:') {
           errorNotice += 'This is likely due to security settings in your browser disallowing local files loading via ajax.'
@@ -66,16 +66,16 @@ var main = function run ($) {
     $('#titleSelect').change(filterRecords)
     $('#yearSelect').change(filterRecords)
     $('#fractionSelect').change(filterRecords)
-    $('#titleInput').on('change', filterRecords)
-    $('#yearInput').on('change', filterRecords)
-    $('#fractionInput').on('change', filterRecords)
-    $('#sortSelect').on('change', filterRecords)
+    $('#titleInput').change(filterRecords)
+    $('#yearInput').change(filterRecords)
+    $('#fractionInput').change(filterRecords)
+    $('#sortSelect').change(filterRecords)
   }
 
   /**
    * Logic function to handle case where browser support is missing for XSLT Processing
-   * @param {*} style the url to the xsl stylesheet
-   * @param {*} xml the url to the xml document
+   * @param {xml} style the xsl stylesheet
+   * @param {xml} xml the xml document
    */
   function populateXSL (style, xml) {
     if (typeof (XSLTProcessor) !== 'undefined') {
@@ -87,8 +87,8 @@ var main = function run ($) {
 
   /**
    * function to process the xml with the stylesheet
-   * @param {*} style the url to the xsl stylesheet
-   * @param {*} xml the url to the xml document
+   * @param {xml} style the url to the xsl stylesheet
+   * @param {xml} xml the url to the xml document
    */
   function processXsl (style, xml) {
     var processor = new XSLTProcessor()
@@ -119,9 +119,9 @@ var main = function run ($) {
 
   /**
    * build the restrict text.
-   * @param {any} titleFilter component of the restriction relating to the title
-   * @param {any} yearFilter component of the restriction relating to the year
-   * @param {any} fractionFilter component of the restriction relating to the fraction
+   * @param {string} titleFilter component of the restriction relating to the title
+   * @param {string} yearFilter component of the restriction relating to the year
+   * @param {string} fractionFilter component of the restriction relating to the fraction
    * @returns the complete restriction string.
    */
   function buildRestriction (titleFilter, yearFilter, fractionFilter) {
@@ -135,8 +135,8 @@ var main = function run ($) {
 
   /**
    * Run filter activation tasks.
-   * @param {any} restrict
-   * @param {any} sort
+   * @param {string} restrict
+   * @param {string} sort
    */
   function activateFilter (restrict, sort) {
     if (restrict !== '') {
@@ -163,7 +163,7 @@ var main = function run ($) {
   }
 
   /**
-   * Handle the UI for the case when restrict is set to or from 'unchanged'
+   * Enable / disable the title input when restrict is set to or from 'unchanged'
    */
   function handleRestrictDisplay (restrict) {
     if (restrict === 'unchanged') {
@@ -202,9 +202,9 @@ var main = function run ($) {
 
   /**
    * Get the restriction from the UI settings
-   * @param  {*} field the selected field
-   * @param  {*} restrict the restriction type
-   * @param  {*} value the value of the restriction
+   * @param  {string} field the selected field
+   * @param  {string} restrict the restriction type
+   * @param  {string} value the value of the restriction
    */
   function getRestriction (field, restrict, value) {
     switch (restrict) {
@@ -219,8 +219,8 @@ var main = function run ($) {
 
   /**
    * Apply the filter to the xsl
-   * @param  {*} xslContent the xsl style template
-   * @param  {*} restrict the built restriction string
+   * @param  {xml} xslContent the xsl style template
+   * @param  {string} restrict the built restriction string
    */
   function applyFilter (xslContent, restrict) {
     if (debug) {
@@ -232,9 +232,9 @@ var main = function run ($) {
   }
 
   /**
-   * Apply te sort to the xsl
-   * @param  {*} xslContent the xsl style template
-   * @param  {*} sort the built sort string
+   * Apply the sort to the xsl
+   * @param  {xml} xslContent the xsl style template
+   * @param  {string} sort the built sort string
    */
   function applySort (xslContent, sort) {
     if (debug) {
@@ -252,11 +252,12 @@ var main = function run ($) {
 function handleNoJQuery () {
   var content = document.getElementById('content')
   content.innerHTML = 'jQuery not found. This library requires JQuery, ' +
-          'please install to continue and ensure it loads first.'
+          'please install to continue and ensure that the jQuery script is ' +
+          'placed before this one.'
 }
 
 /**
- * check if jQuery is loaded
+ * check if jQuery is loaded and handle user notice if not.
  */
 if (typeof jQuery !== 'undefined') {
   main(jQuery)
