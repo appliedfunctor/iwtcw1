@@ -10,8 +10,17 @@
  * collision for run.
  */
 var main = function run ($) {
-  var debug = true
+  var debug = false
 
+  /**
+   * Paths to files
+   */
+  var xmlDataUri = 'xml/remakes.xml'
+  var xslTransformUri = 'style/table-style.xsl'
+
+  /**
+   * variables to hold the loaded xml content
+   */
   var xmlContent = null
   var xslContent = null
 
@@ -43,7 +52,8 @@ var main = function run ($) {
       error: function handleError () {
         var errorNotice = '<h2>Ajax call failed<br>Unable to load ' + resourceUrl + '</h2>'
         if (window.location.protocol === 'file:') {
-          errorNotice += 'This is likely due to security settings in your browser disallowing local files loading via ajax.'
+          errorNotice += 'This is likely due either to security settings in your browser disallowing local files loading via ajax, ' +
+          'or a missing xml file.'
         }
         $('#content').prepend(errorNotice)
       }
@@ -54,8 +64,8 @@ var main = function run ($) {
    * make XML calls to retrieve both the xml document and the stylesheet
    */
   function retrieveXMLData () {
-    getXML('remakes.xml', function (xml) {
-      getXML('table-style.xsl', function (style) {
+    getXML(xmlDataUri, function (xml) {
+      getXML(xslTransformUri, function (style) {
         populateXSL(style, xml)
         xslContent = style
       })
