@@ -1,4 +1,8 @@
 'use strict'
+/**
+ * @author Alexander Worton
+ * I confirm that this coursework submission is entirely my own work, except where explicitly stated otherwise.
+ */
 
 /**
  * Encapsulate the script to hide the scope of the contents and
